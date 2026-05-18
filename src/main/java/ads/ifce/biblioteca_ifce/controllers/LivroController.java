@@ -1,47 +1,44 @@
 package ads.ifce.biblioteca_ifce.controllers;
 
 import ads.ifce.biblioteca_ifce.models.Livro;
+import ads.ifce.biblioteca_ifce.repository.LivroRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/livro")
 public class LivroController {
-    private List<Livro> livros = new ArrayList<>();
+    @Autowired
+    private LivroRepository repository;
+
     @PostMapping
     public Livro cadastrar(@RequestBody Livro livro){
-        livros.add(livro);
-        return livro;
+        return repository.save(livro);
     }
 
     @GetMapping
     public List<Livro> listarLivros(){
-        return livros;
+        return repository.findAll();
     }
 
     @PutMapping("/{id}")
     public Livro atualizarLivro (@PathVariable Long id, @RequestBody Livro livroAtualizado){
-        for (Livro livro : livros){
-            if (livro.getId().equals(id)){
-                livro.setNome(livroAtualizado.getNome());
-                livro.setAno(livroAtualizado.getAno());
-                livro.setAutor(livroAtualizado.getAutor());
-                return livro;
-            }
+        Livro livro = repository.findById(id).orElse(null);
+        if (livro != null){
+            livro.setNome(livroAtualizado.getNome());
+            livro.setAno(livroAtualizado.getAno());
+            livro.setAutor(livroAtualizado.getAutor());
+
+            return repository.save(livro);
         }
         return null;
     }
 
     @DeleteMapping("/{id}")
     public String deletarLivro(@PathVariable Long id){
-        for (Livro livro : livros){
-            if (livro.getId().equals(id)){
-                livros.remove(livro);
-                return "Livro removido com sucesso!";
-            }
-        }
-        return "Livro não encontrado";
+        repository.deleteById(id);
+        return "Livro removido com sucesso!";
     }
 }
