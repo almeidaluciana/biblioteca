@@ -20,4 +20,28 @@ public class LivroController {
     public List<Livro> listarLivros(){
         return livros;
     }
+
+    @PutMapping("/{id}")
+    public Livro atualizarLivro (@PathVariable Long id, @RequestBody Livro livroAtualizado){
+        for (Livro livro : livros){
+            if (livro.getId().equals(id)){
+                livro.setNome(livroAtualizado.getNome());
+                livro.setAno(livroAtualizado.getAno());
+                livro.setAutor(livroAtualizado.getAutor());
+                return livro;
+            }
+        }
+        return null;
+    }
+
+    @DeleteMapping("/{id}")
+    public String deletarLivro(@PathVariable Long id){
+        for (Livro livro : livros){
+            if (livro.getId().equals(id)){
+                livros.remove(livro);
+                return "Livro removido com sucesso!";
+            }
+        }
+        return "Livro não encontrado";
+    }
 }
