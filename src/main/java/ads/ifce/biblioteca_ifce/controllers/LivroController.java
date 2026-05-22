@@ -3,6 +3,7 @@ package ads.ifce.biblioteca_ifce.controllers;
 import ads.ifce.biblioteca_ifce.dto.LivroDTO;
 import ads.ifce.biblioteca_ifce.models.Livro;
 import ads.ifce.biblioteca_ifce.services.LivroService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,30 +19,38 @@ public class LivroController {
     }
 
     @GetMapping
-    public List<Livro> listar() {
-        return service.listar();
+    public ResponseEntity<List<Livro>> listar() {
+        List<Livro> livros = service.listar();
+        return ResponseEntity.ok(livros);
     }
 
     @GetMapping("/{id}")
-    public Livro buscarPorId(@PathVariable Long id) {
-        return service.buscarPorId(id);
+    public ResponseEntity<Livro> buscarPorId(@PathVariable Long id) {
+        Livro livro = service.buscarPorId(id);
+        return ResponseEntity.ok(livro);
     }
 
     @PostMapping
-    public Livro criar(@RequestBody LivroDTO dto) {
-        return service.criar(dto);
+    public ResponseEntity<Livro> criar(@RequestBody LivroDTO dto) {
+
+        Livro livro = service.criar(dto);
+
+        return ResponseEntity
+                .status(201)
+                .body(livro);
     }
 
     @PutMapping("/{id}")
-    public Livro alterar(@PathVariable Long id,
-                         @RequestBody LivroDTO dto) {
-
-        return service.alterar(id, dto);
+    public ResponseEntity<Livro> alterar(@PathVariable Long id,
+                                         @RequestBody LivroDTO dto) {
+        Livro livro = service.alterar(id, dto);
+        return ResponseEntity.ok(livro);
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
         service.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }
 
