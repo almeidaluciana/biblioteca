@@ -1,5 +1,6 @@
 package ads.ifce.biblioteca_ifce.services;
 
+import ads.ifce.biblioteca_ifce.dto.LivroDTO;
 import ads.ifce.biblioteca_ifce.models.Livro;
 import ads.ifce.biblioteca_ifce.repository.LivroRepository;
 import org.springframework.stereotype.Service;
@@ -24,18 +25,24 @@ public class LivroService {
                 .orElseThrow(() -> new RuntimeException("Livro não encontrado"));
     }
 
-    public Livro criar(Livro livro) {
+    public Livro criar(LivroDTO dto) {
+        Livro livro = new Livro();
+
+        livro.setNome(dto.getNome());
+        livro.setAno(dto.getAno());
+        livro.setAutor(dto.getAutor());
+
         return repository.save(livro);
     }
 
-    public Livro alterar(Long id, Livro livroAtualizado) {
+    public Livro alterar(Long id, LivroDTO dto) {
 
         Livro livro = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Livro não encontrado"));
 
-        livro.setNome(livroAtualizado.getNome());
-        livro.setAno(livroAtualizado.getAno());
-        livro.setAutor(livroAtualizado.getAutor());
+        livro.setNome(dto.getNome());
+        livro.setAno(dto.getAno());
+        livro.setAutor(dto.getAutor());
 
         return repository.save(livro);
     }

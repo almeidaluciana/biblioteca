@@ -1,5 +1,6 @@
 package ads.ifce.biblioteca_ifce.controllers;
 
+import ads.ifce.biblioteca_ifce.dto.LivroDTO;
 import ads.ifce.biblioteca_ifce.models.Livro;
 import ads.ifce.biblioteca_ifce.services.LivroService;
 import org.springframework.web.bind.annotation.*;
@@ -27,15 +28,15 @@ public class LivroController {
     }
 
     @PostMapping
-    public Livro criar(@RequestBody Livro livro) {
-        return service.criar(livro);
+    public Livro criar(@RequestBody LivroDTO dto) {
+        return service.criar(dto);
     }
 
     @PutMapping("/{id}")
     public Livro alterar(@PathVariable Long id,
-                         @RequestBody Livro livro) {
+                         @RequestBody LivroDTO dto) {
 
-        return service.alterar(id, livro);
+        return service.alterar(id, dto);
     }
 
     @DeleteMapping("/{id}")
