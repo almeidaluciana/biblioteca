@@ -46,6 +46,7 @@ public class LivroService {
         livro.setNome(dto.getNome());
         livro.setAno(dto.getAno());
         livro.setAutor(dto.getAutor());
+        livro.setImagem(dto.getImagem());
 
         // Salva no banco
         return repository.save(livro);
@@ -62,6 +63,7 @@ public class LivroService {
         livro.setNome(dto.getNome());
         livro.setAno(dto.getAno());
         livro.setAutor(dto.getAutor());
+        livro.setImagem(dto.getImagem());
 
         // Salva atualização
         return repository.save(livro);

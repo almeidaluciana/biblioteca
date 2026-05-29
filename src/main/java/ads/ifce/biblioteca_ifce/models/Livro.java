@@ -27,4 +27,5 @@ public class Livro {
     private String nome;
     private int ano;
     private String autor;
+    private String imagem;
 }

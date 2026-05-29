@@ -11,6 +11,7 @@ import java.util.List;
 
 // Diz que essa classe é um controller REST
 @RestController
+@CrossOrigin(origins = "*")
 // Define rota principal
 @RequestMapping("/livro")
 public class LivroController {

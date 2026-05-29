@@ -14,4 +14,5 @@ public class LivroDTO {
     private String nome;
     private int ano;
     private String autor;
+    private String imagem;
 }
