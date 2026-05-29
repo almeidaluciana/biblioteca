@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+// DTO usado para receber dados da API referentes ao livro
 @Getter
 @Setter
 @AllArgsConstructor
