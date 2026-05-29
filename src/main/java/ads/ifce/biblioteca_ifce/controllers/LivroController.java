@@ -4,6 +4,7 @@ import ads.ifce.biblioteca_ifce.dto.LivroDTO;
 import ads.ifce.biblioteca_ifce.models.Livro;
 import ads.ifce.biblioteca_ifce.services.LivroService;
 // Classe usada para controlar resposta HTTP
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +44,7 @@ public class LivroController {
 
     // Endpoint POST
     @PostMapping
-    public ResponseEntity<Livro> criar(@RequestBody LivroDTO dto) { // Converte JSON para objeto Java
+    public ResponseEntity<Livro> criar(@Valid @RequestBody LivroDTO dto) { // Converte JSON para objeto Java
         // Chama camada service
         Livro livro = service.criar(dto);
 
